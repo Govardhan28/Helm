@@ -34,7 +34,10 @@ jobs:
 
       run: |
         # Build a docker container and push it to ECR 
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t github .
+        #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker tag github:latest 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:latest
         echo "Pushing image to ECR..."
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:latest
+        #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
