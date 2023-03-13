@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 
 ARG NPM_TOKEN
 
-COPY package*.json ./
+COPY package*.json /usr/src/app/package.json
 
 RUN npm install
 
