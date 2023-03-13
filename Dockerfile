@@ -1,7 +1,5 @@
 FROM centos
 
-MAINTAINER hello@gritfy.com
-
 RUN mkdir /opt/tomcat/
 
 WORKDIR /opt/tomcat
