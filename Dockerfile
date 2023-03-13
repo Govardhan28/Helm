@@ -1,18 +1,19 @@
-FROM node:14-slim
+FROM centos
 
-ARG NODE_ENV=production
+MAINTAINER hello@gritfy.com
 
-EXPOSE 8000
+RUN mkdir /opt/tomcat/
 
-WORKDIR /usr/src/app
+WORKDIR /opt/tomcat
+RUN curl -O https://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.40/bin/apache-tomcat-8.5.40.tar.gz
+RUN tar xvfz apache*.tar.gz
+RUN mv apache-tomcat-8.5.40/* /opt/tomcat/.
+RUN yum -y install java
+RUN java -version
 
-ARG NPM_TOKEN
+WORKDIR /opt/tomcat/webapps
+RUN curl -O -L https://github.com/AKSarav/SampleWebApp/raw/master/dist/SampleWebApp.war
 
-COPY package*.json /usr/src/app/package.json
+EXPOSE 8080
 
-RUN npm install
-
-
-COPY src src
-
-CMD ["npm", "start"]
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
