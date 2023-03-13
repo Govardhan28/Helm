@@ -18,6 +18,5 @@ RUN npm install  \
 RUN node -v
 COPY ./dist /src
 WORKDIR /src
-RUN npm install -g yarn
 EXPOSE 9000
 ENTRYPOINT ["node", "./bin/dev"]
