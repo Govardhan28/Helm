@@ -30,14 +30,14 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-        IMAGE_TAG: "version"
+        IMAGE_TAG: "latest"
 
       run: |
         # Build a docker container and push it to ECR 
-        docker build -t github:version .
-        #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:version .
-        docker tag github:latest 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:${app}-${BUILD_NUMBER}
+        docker build -t github .
+        #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker tag github:latest 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:latest
         echo "Pushing image to ECR..."
-        docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:version
+        docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:latest
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${app}-${BUILD_NUMBER}"
+        #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
