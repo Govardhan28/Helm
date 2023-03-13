@@ -1,20 +1,21 @@
-FROM node:10
+FROM node:14-slim
 
-# Create app directory
+ARG NODE_ENV=production
+
+EXPOSE 8000
+
 WORKDIR /usr/src/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+) new 
-COPY package*.json ./usr/src/app/package.json
+ARG NPM_TOKEN
+
+COPY .npmrc .npmrc
+
+COPY package*.json ./
 
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
 
-# Bundle app source -
-COPY . .
+RUN rm -f .npmrc
 
-EXPOSE 8080
-CMD [ "node", "server.js" ]
+COPY src src
 
+CMD ["npm", "start"]
