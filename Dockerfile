@@ -1,21 +1,19 @@
-FROM ubuntu 
-RUN apt-get update -y && apt-get install -y -qq \
-  git \
-  curl \
-  ssh \
-  gcc \
-  make \
-  build-essential \
-  sudo \
-  apt-utils \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash - \
-  && apt-get install -y nodejs \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+FROM node:apline
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json /usr/src/app/package*.json
+
 RUN npm install
-RUN node -v
-WORKDIR /usr/app
-COPY ./ /usr/app
-EXPOSE 9000
-CMD [ "npm","start" ]
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "server.js" ]
