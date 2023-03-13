@@ -1,20 +1,19 @@
-FROM centos
+FROM node:10
 
-RUN mkdir /opt/tomcat/
+# Create app directory
+WORKDIR /usr/src/app
 
-WORKDIR /opt/tomcat
-RUN curl -O https://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.40/bin/apache-tomcat-8.5.40.tar.gz
-RUN yum -y install java
-RUN java -version
-RUN yum -y install tar
-RUN tar xvfz apache*.tar.gz
-RUN mv apache-tomcat-8.5.40/* /opt/tomcat/.
-RUN yum -y install java
-RUN java -version
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./usr/src/app/package.json
 
-WORKDIR /opt/tomcat/webapps
-RUN curl -O -L https://github.com/AKSarav/SampleWebApp/raw/master/dist/SampleWebApp.war
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
 
 EXPOSE 8080
-
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+CMD [ "node", "server.js" ]
