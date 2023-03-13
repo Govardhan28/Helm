@@ -16,7 +16,7 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash - \
 RUN npm install  \
   && npm cache verify
 RUN node -v
-COPY ./dist /src
-WORKDIR /src
+WORKDIR /usr/app
+COPY ./ /usr/app
 EXPOSE 9000
-ENTRYPOINT ["node", "./bin/dev"]
+CMD [ "npm","start" ]
