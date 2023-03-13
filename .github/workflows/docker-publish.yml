@@ -36,7 +36,7 @@ jobs:
         # Build a docker container and push it to ECR 
         docker build -t github:1.0 .
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker tag github:latest 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:version
+        docker tag github:version 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:version
         echo "Pushing image to ECR..."
         docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:version
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
