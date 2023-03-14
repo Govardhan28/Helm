@@ -54,4 +54,4 @@ jobs:
         echo "Pushing image to ECR..."
         docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG 
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"-Test
