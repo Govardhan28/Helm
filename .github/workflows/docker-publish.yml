@@ -20,6 +20,17 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-south-2
+    
+    - name: Git Semantic Version
+      id: Versioning
+      uses: PaulHatch/semantic-version@v5.0.3
+      with:
+        branch: main
+        tag_prefix: "v"
+        major_pattern: "(MAJOR)"
+        minor_pattern: "(MINOR)"
+        format: "v${major}.${minor}.${patch}-prerelease${increment}"
+
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -30,7 +41,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-        IMAGE_TAG: ${{ github.sha }}
+        IMAGE_TAG: ${{ secrets.REPO_NAME }}:${{ steps.versioning.outputs.version }}
 
       run: |
         # Build a docker container and push it to ECR 
