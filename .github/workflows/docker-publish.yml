@@ -22,7 +22,7 @@ jobs:
         aws-region: ap-south-2
      
     - name: set Build num
-      run: echo"::set-env name=IMAGE_NUMBER::1.0.${{ github.run_number}} 
+      run: echo"::set-env name=IMAGE_NUMBER::1.0.${{ github.run_number}}" 
 
     - name: Login to Amazon ECR
       id: login-ecr
