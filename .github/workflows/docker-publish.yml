@@ -32,7 +32,8 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-        IMAGE_TAG: ${{ env.VERSION_TAG }}
+        #IMAGE_TAG: ${{ env.VERSION_TAG }}
+        IMAGE_NUMBER: ${{github.run_number }}
 
       run: |
         # Build a docker container and push it to ECR 
@@ -42,5 +43,5 @@ jobs:
         echo "Pushing image to ECR..."
         docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG 
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-        echo "::set-output name=image::566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG"
+        echo "::set-output name=IMAGE_NUMBER::1.0${{github.run_number }}"
+        #echo "::set-output name=image::566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG"
