@@ -4,6 +4,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    tags:
+      - 'v*'
 
 
 jobs:
@@ -42,7 +44,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-        IMAGE_TAG: version:${{ steps.versioning.outputs.version }}
+        IMAGE_TAG: ${{ steps.versioning.outputs.version }}
 
       run: |
         # Build a docker container and push it to ECR 
