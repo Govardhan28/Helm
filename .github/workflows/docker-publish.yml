@@ -36,7 +36,7 @@ jobs:
       run: |
         # Build a docker container and push it to ECR 
         docker build -t github:$IMAGE_TAG  .
-        docker tag github:$IMAGE_TAG 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG
+        docker tag github:$IMAGE_TAG 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG-{{ latest }}
         echo "Pushing image to ECR..."
         docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG-{{ latest }}
         #docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:latest
