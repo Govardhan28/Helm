@@ -43,5 +43,11 @@ jobs:
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        
+    - name: Trigger deploy
+      uses: phamquyhai/kubernetes-action@master
+      with:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          args: apply Deployment.yaml
     
 
