@@ -31,21 +31,16 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
         #IMAGE_TAG: ${{ env.VERSION_TAG }}
-        IMAGE_TAG: ${{github.run_number }}
+        IMAGE_TAG: ${{ github.run_number }}
 
       run: |
         # Build a docker container and push it to ECR 
         docker build -t github:$IMAGE_TAG  .
         docker tag github:$IMAGE_TAG  566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG
         echo "Pushing image to ECR..."
-        docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG
+        docker push 566903284890.dkr.ecr.ap-south-2.amazonaws.com/github:$IMAGE_TAG:latest
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
     
-    - name: Trigger deploy
-      uses: phamquyhai/kubernetes-action@master
-      with:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-          args: apply deployment.yaml
 
