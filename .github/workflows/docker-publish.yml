@@ -31,7 +31,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
         #IMAGE_TAG: ${{ env.VERSION_TAG }}
-        IMAGE_TAG: ${{ github.run_number }}-latest
+        IMAGE_TAG: ${{ github.run_number }}
 
       run: |
         # Build a docker container and push it to ECR 
