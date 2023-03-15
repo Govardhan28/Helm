@@ -31,7 +31,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
         #IMAGE_TAG: "latest"
-        IMAGE_TAG: ${{ github.run_number }}
+        IMAGE_TAG: latest-${{ github.run_number }}
 
       run: |
         # Build a docker container and push it to ECR 
@@ -44,10 +44,10 @@ jobs:
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
-    - name: Trigger deploy
-      uses: phamquyhai/kubernetes-action@master
-      with:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-          args: apply Deployment.yaml
+    #- name: Trigger deploy
+     # uses: phamquyhai/kubernetes-action@master
+      #with:
+       #   KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        #  args: apply Deployment.yaml
     
 
