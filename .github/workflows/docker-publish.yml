@@ -43,17 +43,18 @@ jobs:
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+    
+    - name: config kubect
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG_DATA}}
+    - name: eks
+      run:
+         kubectl apply -f Deployment.yaml
         
-    - name: Configure kubectl
-      uses: azure/k8s-set-context@v1
-      with:
-        method: kubeconfig
-        kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
-        
-    - name: deploy
-      run: 
-         kubectl apply -f Deployment.yaml
-  
+      
+
 
         
 
