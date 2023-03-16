@@ -66,7 +66,7 @@ jobs:
     - name: eks
       run:
          export KUBECONFIG=kubeconfig.yaml
-         kubectl apply -f Deployment.yaml
+         apply Deployment.yaml
         
       
 
