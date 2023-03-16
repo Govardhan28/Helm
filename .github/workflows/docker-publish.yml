@@ -44,14 +44,17 @@ jobs:
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
         
-    - name: Trigger deploy
-      uses: aws-actions/EKS-Config_data@v1
-      with:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-    
-    - name: Deploy
-      id: deploy
+    - name: Configure kubectl
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+        
+    - name: deploy
       run: 
-          kubectl apply -f Deployment.yaml
-    
+         kubectl apply -f Deployment.yaml
+  
+
+        
+
 
