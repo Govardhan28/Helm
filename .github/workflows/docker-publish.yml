@@ -1,4 +1,4 @@
-name: Nodejs application deploy on EKS task
+name: Nodejs application deploy on EKS 
 on:
   push:
     branches: [ "main" ]
