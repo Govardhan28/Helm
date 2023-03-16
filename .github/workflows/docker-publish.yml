@@ -48,13 +48,13 @@ jobs:
       run: |
         VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
         # https://github.com/aws/aws-cli/issues/6920#issuecomment-1117981158
-        VERSION=v1.23.6
-        curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
-          --progress-bar \
-          --location \
-          --remote-name
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
+        VERSION=v1.25.6
+        curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/darwin/amd64/kubectl
+
+        chmod +x ./kubectl
+
+        sudo mv ./kubectl /usr/local/bin/kubectl
+
         echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
 
     
