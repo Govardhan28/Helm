@@ -43,6 +43,11 @@ jobs:
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+    - name: update kube config
+      run: aws eks update-kubeconfig --name EKS --region ap-south-2
+      
+    - name: Deploy to EKS
+      run: kubectl apply -f deployment.yaml 
 
     
     #- name: config kubect
@@ -51,28 +56,28 @@ jobs:
       #  method: kubeconfig
        # kubeconfig: ${{ secrets.KUBE_CONFIG_DATA}}
        
-    - name: Install and configure kubectl
-      run: |
-        VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-        curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
-             --progress-bar \
-             --location \
-             --remote-name
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
-        echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
+    #- name: Install and configure kubectl
+     # run: |
+      #  VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+       # curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
+        #     --progress-bar \
+         #    --location \
+          #   --remote-name
+        #chmod +x kubectl
+        #sudo mv kubectl /usr/local/bin/
+        #echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
         
-    - name: Deploy
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
-        #IMAGE_TAG: "latest"
-        IMAGE_TAG: ${{ github.run_number }}
-      run: |
-        export ECR_REPOSITORY=${{ secrets.REPO_NAME }}
-        export IMAGE_TAG=${{ github.run_numbe }}
-        export KUBE_CONFIG_DATA=kubeconfig.yaml
-        kubectl apply -f deployment.yaml
+    #- name: Deploy
+    #  env:
+     #   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #  ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+       # #IMAGE_TAG: "latest"
+        #IMAGE_TAG: ${{ github.run_number }}
+     # run: |
+      #  export ECR_REPOSITORY=${{ secrets.REPO_NAME }}
+       # export IMAGE_TAG=${{ github.run_numbe }}
+        #export KUBE_CONFIG_DATA=kubeconfig.yaml
+        #kubectl apply -f deployment.yaml
         
    # - name: eks
    #   run:
