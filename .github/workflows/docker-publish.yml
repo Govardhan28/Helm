@@ -51,7 +51,7 @@ jobs:
         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
     - name: update kube config
-      run: aws eks update-kubeconfig:${{ secrets.KUBE_CONFIG_DATA }} --name EKS --region ap-south-2
+      run: aws eks update-kubeconfig=${{ secrets.KUBE_CONFIG_DATA }} --name EKS --region ap-south-2
       
     - name: Deploy to EKS
       run: kubectl apply -f deployment.yaml 
