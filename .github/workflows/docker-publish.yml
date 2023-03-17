@@ -54,9 +54,9 @@ jobs:
       run: aws eks update-kubeconfig --name EKS --region ap-south-2
       
     - name: Deploy to EKS
-      run: 
-         kubectl config get-contexts
-         kubectl apply -f deployment.yaml 
+      run: kubectl apply  deployment.yaml 
+        # kubectl config get-contexts
+         
 
     
     #- name: config kubect
