@@ -72,8 +72,7 @@ jobs:
         export ECR_REPOSITORY=${{ secrets.REPO_NAME }}
         export IMAGE_TAG=${{ github.run_numbe }}
         export KUBE_CONFIG_DATA=kubeconfig.yaml
-       
-         kubectl apply -f deployment.yaml
+        kubectl apply -f deployment.yaml
         
    # - name: eks
    #   run:
