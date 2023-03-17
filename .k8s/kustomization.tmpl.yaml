@@ -1,7 +1,5 @@
 resources:
 - deployment.yaml
-- namespace.yaml
-- service.yaml
 
 images:
 - name: amazonaws.com/kubernetes-github-actions
