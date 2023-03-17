@@ -56,7 +56,7 @@ jobs:
     - name: Deploy to EKS
       run: 
       #kubectl apply -f ./kubernetes/deployment.yaml 
-        kubectl --version
+        kubectl version
          
 
     
