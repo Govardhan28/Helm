@@ -73,7 +73,7 @@ jobs:
         export IMAGE_TAG=${{ github.run_numbe }}
         export KUBE_CONFIG_DATA=kubeconfig.yaml
        
-         kubectl apply -f -
+         kubectl apply -f deployment.yaml
         
    # - name: eks
    #   run:
