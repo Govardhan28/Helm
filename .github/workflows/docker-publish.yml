@@ -73,12 +73,13 @@ jobs:
         export IMAGE_TAG=${{ github.run_numbe }}
         export KUBE_CONFIG_DATA=kubeconfig.yaml
        
-        kubectl kustomize k8s | kubectl apply -f -
+         kubectl apply -f -
         
    # - name: eks
    #   run:
    #      kubectl apply ./kube/manifests/Deployment.
    # envsubst < k8s/kustomization.tmpl.yaml > k8s/kustomization.yaml
+   #kubectl kustomize k8s |
         
       
 
